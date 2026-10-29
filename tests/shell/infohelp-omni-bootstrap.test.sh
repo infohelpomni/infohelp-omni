@@ -17,4 +17,15 @@ bash -n scripts/omni-preflight.sh
 bash -n install-infohelp-omni.sh
 grep -Fq 'exec bash "$ROOT_DIR/hostgator-setup-kit/install-single-server.sh"' install-infohelp-omni.sh
 
+# Testa apenas a CLI sem abrir a instalação ou acessar Docker.
+bash install-infohelp-omni.sh --help | grep -Fq -- '--check'
+if bash install-infohelp-omni.sh --opcao-invalida >/dev/null 2>&1; then
+  printf 'ERRO: opção inválida foi aceita.\n' >&2
+  exit 1
+fi
+if bash install-infohelp-omni.sh --install --domain >/dev/null 2>&1; then
+  printf 'ERRO: --domain sem valor foi aceito.\n' >&2
+  exit 1
+fi
+
 printf 'OK: bootstrap Omni, sincronização SMTP existente e sintaxe shell conferidos.\n'
