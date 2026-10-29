@@ -54,7 +54,7 @@ O gradiente pode ser usado em bordas, ícones, ilustrações e fundos decorativo
 
 1. O kit single-server do fork agora **semeia** `APP_ACCENT_HEX=#086AB7` apenas quando ainda não houver outra cor definida. Reinstalações preservam a cor existente.
 2. A configuração de marca da plataforma vive no **banco** depois da primeira inicialização; alterar o `.env` posteriormente não garante mudar a aparência já salva.
-3. O sistema de marca própria existente cobre nome, logo e cor de destaque. A substituição completa da paleta neutra original, incluindo modo escuro e todos os componentes, exige trabalho separado na fonte de tokens (`app/design/lib/tokens.ts`) e no CSS global; ainda **não foi aplicada**.
+3. A paleta **Omni** agora existe em `app/design/lib/tokens.ts` (`PALETTES.omni`) como opção adicional, preservando `sage`, `clay`, `mist`, `plum` e `olive`. Inclui rampas, superfícies e cores semânticas para claro/escuro. **Ainda não é a aparência padrão do aplicativo em produção**: o CSS global segue com a paleta-base original e o branding de instalação injeta a cor de destaque em runtime. A integração visual completa continua pendente de testes de regressão.
 4. Antes de mudar os tokens globais, mapear a nomenclatura do design system e seus testes de governança; preservar estados de erro/alerta/sucesso, acessibilidade e responsividade.
 5. Validar login, painel, conversas, formulários, tabelas, modais, gráficos e e-mails com screenshots nos dois temas.
 
@@ -65,6 +65,7 @@ A logo usa **Space Grotesk**. A interface atual possui fonte própria em build. 
 ## Pendências
 
 - [ ] Integrar PNGs otimizados dos logos à configuração runtime de marca, evitando o upload de SVG.
-- [ ] Implementar o tema Omni completo em tokens e CSS, com testes claros/escuros.
+- [x] Definir a paleta Omni como opção adicional de design tokens e adicionar teste unitário de identidade/contraste.
+- [ ] Aplicar o tema Omni em runtime sem substituir o mecanismo de white-label nem quebrar testes de contraste.
 - [ ] Validar contraste de todos os estados interativos.
 - [ ] Gerar screenshots reais antes da aprovação da interface.
