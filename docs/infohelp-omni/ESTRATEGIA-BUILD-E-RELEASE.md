@@ -43,6 +43,14 @@ Os nomes acima são os que o workflow atual `.github/workflows/publish-image.yml
 
 A AlphaVPS será compartilhada com outras aplicações. A reserva de 80/443 precisa ser única para o proxy reverso da máquina; cada novo serviço recebe rede e hostname próprios. O kit já dispõe de alternativas com Traefik, mas a decisão do proxy da VPS precisa ser fechada quando soubermos que serviços estarão nela. **Não publicar portas de Postgres/Redis/WAHA indiscriminadamente.**
 
+## Trava técnica implementada no instalador
+
+O wrapper `install-infohelp-omni.sh --install` agora consulta a **release estável mais recente do próprio fork** (`/releases/latest`) e confere, com a rotina `trio_publicado` do kit, as quatro imagens publicadas no namespace `ghcr.io/infohelpomni` (app, worker, scheduler e voice-agent). Sem release no formato `vX.Y.Z`, sem rede ou sem qualquer uma das quatro imagens acessível anonimamente, o comando termina **antes de preparar Supabase, Docker ou credenciais**.
+
+O `--check` permanece independente de GitHub e GHCR, permitindo diagnosticar recursos durante a espera pela VPS. As verificações estáticas desse bloqueio foram incluídas em `pnpm test:shell`. **A execução de testes no ambiente completo e o ensaio de instalação real ainda estão pendentes.**
+
+A trava somente prova presença pública da referência no registry; **não** prova compatibilidade, procedência do digest, correção do build ou funcionamento dos serviços. É uma defesa adicional, não substituto da homologação.
+
 ## Regra temporária de segurança
 
 **Não executar `bash install-infohelp-omni.sh --install` na VPS definitiva antes de o conjunto de imagens Omni existir e do instalador ser atualizado para usá-lo.** O `--check` continua apropriado para diagnóstico. O manual operacional e a PR devem manter este bloqueio explícito até sua remoção com evidências.
