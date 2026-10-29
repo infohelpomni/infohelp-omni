@@ -25,6 +25,11 @@ bash -n hostgator-setup-kit/_common.sh
 bash -n scripts/omni-preflight.sh
 bash -n install-infohelp-omni.sh
 grep -Fq 'exec bash "$ROOT_DIR/hostgator-setup-kit/install-single-server.sh"' install-infohelp-omni.sh
+# O gate de publicação precisa vir ANTES do primeiro script de instalação.
+grep -Fq 'OMNI_RELEASE_API="https://api.github.com/repos/infohelpomni/infohelp-omni/releases/latest"' install-infohelp-omni.sh
+grep -Fq 'trio_publicado "$versao"' install-infohelp-omni.sh
+grep -Fq 'verificar_imagens_omni || exit 1' install-infohelp-omni.sh
+grep -Fq 'export REPO_URL="https://github.com/infohelpomni/infohelp-omni.git"' install-infohelp-omni.sh
 
 # Testa apenas a CLI sem abrir a instalação ou acessar Docker.
 bash install-infohelp-omni.sh --help | grep -Fq -- '--check'
