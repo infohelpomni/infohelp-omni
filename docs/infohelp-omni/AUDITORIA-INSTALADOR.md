@@ -42,3 +42,10 @@ O kit single-server já sobe Supabase self-hosted e app na mesma VPS, com Caddy 
 ## Política de aceite
 
 Não afirmar que o Omni preserva 100% das funções apenas porque o stack sobe. Validar autenticação, MFA, CRM, inbox, WhatsApp, filas, agentes IA, mídia, automações, canais, e-mails, backup e restauração contra testes do fork antes de liberar o deploy.
+
+## Progresso — 2026-10-29
+
+- Hospedagem planejada: **AlphaVPS C16G**, 6 vCPU, 16 GB RAM, 140 GB NVMe, 12 TB mensais; localidade apresentada: **Sofia, Bulgária**. Medir latência real do Brasil e verificar política de backups.
+- Organização confirmada: **InfoHelp - Omni**. O SQL do instalador de produção ainda cria literalmente a organização `Minha Empresa` com slug `minha-empresa`; corrigir sem afetar instalações existentes.
+- SMTP inicial previsto: `omni@infohelpsolucoes.com.br` em `smtp.infohelpsolucoes.com.br:587` STARTTLS; usuário e remetente devem ser validados sem divulgar senha.
+- Utilitário criado: `bash scripts/omni-preflight.sh`, somente leitura, com verificações de Ubuntu, RAM, CPU, disco, arquitetura, ferramentas e portas 80/443. Ainda não foi executado numa VPS real.
