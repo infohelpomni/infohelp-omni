@@ -289,6 +289,9 @@ set_env_var "$app_env" SUPABASE_DB_URL "postgresql://postgres:${postgres_passwor
 set_env_var "$app_env" OWNER_EMAIL "$owner_email"
 set_env_var "$app_env" OWNER_PASSWORD "$owner_password"
 set_env_var "$app_env" APP_NAME "InfoHelp Omni"
+# Tom de ação acessível derivado do azul da marca; respeita cor já definida em reinstalações.
+omni_accent="$(ler_env "$app_env" APP_ACCENT_HEX)"
+set_env_var "$app_env" APP_ACCENT_HEX "${omni_accent:-#086AB7}"
 set_env_var "$app_env" APP_LOCALE pt-BR
 # IA: nenhuma chave e gravada, entao ela nasce sem credencial (desligada) e o
 # fim do install.sh aponta o caminho em IA > Credenciais. Chaves NAO sao
