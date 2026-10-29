@@ -22,7 +22,7 @@ Os nomes acima são os que o workflow atual `.github/workflows/publish-image.yml
 
 1. **Inspeção inicial concluída:** `.github/workflows/publish-image.yml` já usa `github.repository_owner`, `packages: write`, `docker/build-push-action`, `workflow_dispatch` e publicação por tags `v*`. Confirmar permissão efetiva e condições de disparo da organização antes de publicar.
 2. Reutilizar o pipeline existente para um conjunto sincronizado de **app, worker e scheduler** (e conferir voice-agent), compilado da mesma revisão. Não introduzir `docker build` automático na VPS do cliente.
-3. Adaptar as constantes de repositório de imagens e resolução de releases do kit do fork, sem alterar a instalação do Supabase oficial.
+3. **Concluído no fork:** `IMG_NS` agora aponta para `ghcr.io/infohelpomni` em `_common.sh`, e o `REPO_URL` padrão para `https://github.com/infohelpomni/infohelp-omni.git` em `install.sh`. O Supabase oficial permanece intacto. A publicação real das imagens continua pendente.
 4. Definir uma versão Omni (ex.: `v2.0.0-rc.1`), política de rollback e as tags aceitas pelo resolvedor. Não assumir que o formato de versão do upstream aceita prerelease.
 5. Validar por digest as três imagens e arquitetura `linux/amd64` (AlphaVPS Sofia, a confirmar por `uname -m`) antes de permitir deploy.
 6. Fazer `docker compose config` e smoke tests de app, worker e scheduler, além de preservar todos os testes do DeskComm.
@@ -30,7 +30,8 @@ Os nomes acima são os que o workflow atual `.github/workflows/publish-image.yml
 
 ## Critérios de aprovação da instalação
 
-- [ ] Nenhum serviço Omni exige imagem privada ou do namespace `melgarafael`.
+- [x] Namespace padrão das imagens do kit alterado para `ghcr.io/infohelpomni` e testado estaticamente no fork.
+- [ ] Imagens reais disponíveis publicamente e nenhum serviço Omni dependendo de pacotes do upstream.
 - [ ] A versão do app corresponde à dos workers e do scheduler.
 - [ ] Imagens GHCR públicas ou com autenticação de pull provisionada **sem segredos no git**.
 - [ ] Instalador não faz fallback silencioso para o DeskComm original.
