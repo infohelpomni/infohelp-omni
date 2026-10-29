@@ -2321,14 +2321,14 @@ begin
   if v_uid is null then
     raise exception 'usuário % não encontrado no auth.users (a criação no Auth falhou?)', '${OWNER_EMAIL}';
   end if;
-  select id into v_org from public.organizations where slug='minha-empresa';
+  select id into v_org from public.organizations where slug='infohelp-omni';
   if v_org is null then
     -- locale aqui, e não só no usuário dono: é a organização que responde
     -- pelos convidados que ainda não existem. Quem entra sem preferência
     -- própria cai neste valor, então gravar só no dono entregaria o sistema em
     -- português para todo mundo que ele convidasse numa instalação em espanhol.
     insert into public.organizations (slug, display_name, legal_name, locale, created_by)
-    values ('minha-empresa','Minha Empresa','Minha Empresa','${APP_LOCALE:-pt-BR}', v_uid)
+    values ('infohelp-omni','InfoHelp - Omni','InfoHelp - Omni','${APP_LOCALE:-pt-BR}', v_uid)
     returning id into v_org;
   else
     -- Re-execução do instalador com outra resposta: quem rodou de novo para
