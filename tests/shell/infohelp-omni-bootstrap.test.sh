@@ -8,6 +8,7 @@ cd "$ROOT_DIR"
 
 grep -Fq 'owner_email="${OMNI_OWNER_EMAIL:-omni@infohelpsolucoes.com.br}"' hostgator-setup-kit/install-single-server.sh
 grep -Fq 'set_env_var "$app_env" APP_NAME "InfoHelp Omni"' hostgator-setup-kit/install-single-server.sh
+grep -Fq 'APP_ACCENT_HEX "${omni_accent:-#086AB7}"' hostgator-setup-kit/install-single-server.sh
 grep -Fq "where slug='infohelp-omni'" hostgator-setup-kit/install.sh
 grep -Fq "'InfoHelp - Omni','InfoHelp - Omni'" hostgator-setup-kit/install.sh
 grep -Fq 'sincronizar_smtp_do_gotrue' hostgator-setup-kit/install-single-server.sh
