@@ -49,3 +49,12 @@ Não afirmar que o Omni preserva 100% das funções apenas porque o stack sobe. 
 - Organização confirmada: **InfoHelp - Omni**. O SQL do instalador de produção ainda cria literalmente a organização `Minha Empresa` com slug `minha-empresa`; corrigir sem afetar instalações existentes.
 - SMTP inicial previsto: `omni@infohelpsolucoes.com.br` em `smtp.infohelpsolucoes.com.br:587` STARTTLS; usuário e remetente devem ser validados sem divulgar senha.
 - Utilitário criado: `bash scripts/omni-preflight.sh`, somente leitura, com verificações de Ubuntu, RAM, CPU, disco, arquitetura, ferramentas e portas 80/443. Ainda não foi executado numa VPS real.
+
+## Implementação inicial em branch — 2026-10-29
+
+- `install-infohelp-omni.sh`: entrada com `--check` (diagnóstico) e `--install` (confirmação explícita antes de chamar o kit original). **Ainda não homologado em VPS**.
+- `hostgator-setup-kit/install-single-server.sh`: e-mail do proprietário inicial configurável via `OMNI_OWNER_EMAIL`, com padrão `omni@infohelpsolucoes.com.br`; marca padrão `InfoHelp Omni`.
+- `hostgator-setup-kit/install.sh`: organização inicial fixa `InfoHelp - Omni`, slug `infohelp-omni`, no bootstrap SQL. Revisar compatibilidade caso futuramente se use o mesmo fork para múltiplas instalações.
+- `tests/shell/infohelp-omni-bootstrap.test.sh`: verificações estáticas e `bash -n`; a presença do teste não significa que ele já foi executado em CI ou numa VPS.
+- SMTP: o kit já possui `sincronizar_smtp_do_gotrue`. Ainda **não** foi implementada a coleta segura da senha SMTP no instalador; o fluxo temporário é configurar o SMTP em Admin > E-mail e executar o `update.sh` para sincronizar o Auth. Não publicar como configuração SMTP automática até conclusão dos testes.
+- **Critério de bloqueio para produção:** antes de executar `--install`, validar a suíte shell, instalação do zero, segunda execução sem redefinição inesperada e os e-mails de confirmação e recuperação de senha.
