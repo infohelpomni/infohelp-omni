@@ -256,7 +256,7 @@ if [[ -f "$CREDENTIALS_FILE" ]]; then
   owner_email="$(ler_env "$CREDENTIALS_FILE" OWNER_EMAIL)"
   owner_password="$(ler_env "$CREDENTIALS_FILE" OWNER_PASSWORD)"
 else
-  owner_email="admin@${domain}"
+  owner_email="${OMNI_OWNER_EMAIL:-omni@infohelpsolucoes.com.br}"
   owner_password="$(openssl rand -hex 16)"
   umask 077
   {
@@ -288,7 +288,7 @@ set_env_var "$app_env" SUPABASE_DB_URL "postgresql://postgres:${postgres_passwor
 # publicada das TRES imagens e grava numero de versao (nunca tag movel).
 set_env_var "$app_env" OWNER_EMAIL "$owner_email"
 set_env_var "$app_env" OWNER_PASSWORD "$owner_password"
-set_env_var "$app_env" APP_NAME DeskcommCRM
+set_env_var "$app_env" APP_NAME "InfoHelp Omni"
 set_env_var "$app_env" APP_LOCALE pt-BR
 # IA: nenhuma chave e gravada, entao ela nasce sem credencial (desligada) e o
 # fim do install.sh aponta o caminho em IA > Credenciais. Chaves NAO sao
