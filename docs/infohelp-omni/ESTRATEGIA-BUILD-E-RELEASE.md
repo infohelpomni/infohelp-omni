@@ -12,16 +12,16 @@ O fork personaliza o fonte, o SQL inicial e o wrapper de instalação, mas o kit
 
 Uma release Omni deve publicar um conjunto coerente e rastreável:
 
-- `ghcr.io/infohelpomni/infohelp-omni-app:<versao>`
-- `ghcr.io/infohelpomni/infohelp-omni-worker:<versao>`
-- `ghcr.io/infohelpomni/infohelp-omni-scheduler:<versao>`
+- `ghcr.io/infohelpomni/deskcommcrm:<versao>`
+- `ghcr.io/infohelpomni/deskcomm-worker:<versao>`
+- `ghcr.io/infohelpomni/deskcomm-scheduler:<versao>`
 
-Os nomes acima são **propostos**, não são imagens já publicadas. A mesma tag (ou digest identificado) deve ser usada nas três partes.
+Os nomes acima são os que o workflow atual `.github/workflows/publish-image.yml` produz no namespace dinâmico `github.repository_owner`. Não são imagens já publicadas; preservar esses nomes nesta etapa reduz o risco de incompatibilidade com scripts existentes. Há também `deskcomm-voice-agent` no workflow: verificar se esse serviço precisa ser incluído no pacote de produção Omni. A mesma tag (ou digest identificado) deve ser usada nas três partes.
 
 ## Etapas sem VPS
 
-1. Inspecionar o workflow existente de build/push e as permissões do GitHub Actions para publicação no GHCR da organização `infohelpomni`.
-2. Adaptar o build para **três imagens** e mesma revisão de código. Não introduzir `docker build` automático na VPS do cliente.
+1. **Inspeção inicial concluída:** `.github/workflows/publish-image.yml` já usa `github.repository_owner`, `packages: write`, `docker/build-push-action`, `workflow_dispatch` e publicação por tags `v*`. Confirmar permissão efetiva e condições de disparo da organização antes de publicar.
+2. Reutilizar o pipeline existente para um conjunto sincronizado de **app, worker e scheduler** (e conferir voice-agent), compilado da mesma revisão. Não introduzir `docker build` automático na VPS do cliente.
 3. Adaptar as constantes de repositório de imagens e resolução de releases do kit do fork, sem alterar a instalação do Supabase oficial.
 4. Definir uma versão Omni (ex.: `v2.0.0-rc.1`), política de rollback e as tags aceitas pelo resolvedor. Não assumir que o formato de versão do upstream aceita prerelease.
 5. Validar por digest as três imagens e arquitetura `linux/amd64` (AlphaVPS Sofia, a confirmar por `uname -m`) antes de permitir deploy.
