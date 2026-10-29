@@ -14,5 +14,7 @@ grep -Fq 'sincronizar_smtp_do_gotrue' hostgator-setup-kit/install-single-server.
 bash -n hostgator-setup-kit/install-single-server.sh
 bash -n hostgator-setup-kit/install.sh
 bash -n scripts/omni-preflight.sh
+bash -n install-infohelp-omni.sh
+grep -Fq 'exec bash "$ROOT_DIR/hostgator-setup-kit/install-single-server.sh"' install-infohelp-omni.sh
 
 printf 'OK: bootstrap Omni, sincronização SMTP existente e sintaxe shell conferidos.\n'
