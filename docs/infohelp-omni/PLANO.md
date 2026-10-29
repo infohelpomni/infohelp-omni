@@ -8,6 +8,8 @@
 - Produto: **InfoHelp Omni 2.0**.
 - Domínio público planejado: `https://omni.infohelpsolucoes.com.br`.
 - Administrador inicial (e-mail): `omni@infohelpsolucoes.com.br`.
+- Organização inicial: **InfoHelp - Omni**.
+- SMTP: conta inicialmente prevista **omni@infohelpsolucoes.com.br** (confirmar login e remetente autorizado, sem divulgar senha).
 - SMTP existente: `smtp.infohelpsolucoes.com.br`, porta `587`, STARTTLS. Usuário, senha e remetente ainda serão validados; **não colocar senhas no Git**.
 - Supabase **self-hosted** com Auth, PostgreSQL, Realtime e Storage.
 - Docker Engine + Docker Compose; Portainer opcional e não instalado inicialmente.
@@ -57,4 +59,4 @@
 - Preservar licença MIT e avisos de direitos autorais exigidos.
 - Nunca registrar credenciais reais, chaves Supabase, tokens WAHA ou SMTP em commits, issues ou PRs.
 - Toda alteração posterior deve entrar no histórico técnico, nos testes correspondentes e no manual operacional.
-- Não contratar ou dimensionar definitivamente a VPS antes da análise dos serviços e carga esperada.
+- VPS escolhida pelo usuário: AlphaVPS C16G (6 vCPU Xeon Scalable, 16 GB RAM, 140 GB NVMe RAID-10, 12 TB mensais anunciados). Confirmar localização, disponibilidade, política de backup e regras de recursos compartilhados antes da compra.
