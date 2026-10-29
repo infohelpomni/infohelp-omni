@@ -1,6 +1,6 @@
 # InfoHelp Omni 2.0 — Manual operacional inicial
 
-> **Rascunho em validação:** comandos de instalação só devem ser executados após homologação da branch e aprovação. Não usar esta versão como guia de produção ainda.
+> **Rascunho em validação — instalação bloqueada:** o kit ainda resolve imagens Docker do DeskComm original. **Não execute `--install` na VPS definitiva** até que a publicação das três imagens Omni e a atualização do instalador estejam prontas. Ver [Estratégia de build e release](ESTRATEGIA-BUILD-E-RELEASE.md).
 >
 > Origem: fork `infohelpomni/infohelp-omni`. Instalação planejada: AlphaVPS C16G, Sofia, Bulgária, Ubuntu Server 24.04 LTS.
 
@@ -85,6 +85,8 @@ Na raiz do repositório, o kit de produção usa múltiplos arquivos Compose/ove
 | Atualização falha | Verificar backup anterior e documentação de rollback; não apagar volumes |
 
 ## Pendências antes da publicação
+
+- [ ] Publicar e pinçar imagens Omni próprias (app, worker, scheduler), com validação de digest e rollback no mesmo namespace.
 
 - [ ] Executar testes de shell e análise sintática.
 - [ ] Verificar instalação fresca e segunda execução.
