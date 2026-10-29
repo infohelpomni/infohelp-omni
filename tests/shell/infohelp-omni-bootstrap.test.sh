@@ -12,8 +12,16 @@ grep -Fq 'APP_ACCENT_HEX "${omni_accent:-#086AB7}"' hostgator-setup-kit/install-
 grep -Fq "where slug='infohelp-omni'" hostgator-setup-kit/install.sh
 grep -Fq "'InfoHelp - Omni','InfoHelp - Omni'" hostgator-setup-kit/install.sh
 grep -Fq 'sincronizar_smtp_do_gotrue' hostgator-setup-kit/install-single-server.sh
+# Publicação, atualização e rollback devem apontar ao fork, nunca às imagens upstream.
+grep -Fq 'IMG_NS="ghcr.io/infohelpomni"' hostgator-setup-kit/_common.sh
+grep -Fq 'REPO_URL="${REPO_URL:-https://github.com/infohelpomni/infohelp-omni.git}"' hostgator-setup-kit/install.sh
+if grep -Fq 'IMG_NS="ghcr.io/melgarafael"' hostgator-setup-kit/_common.sh; then
+  printf 'ERRO: instalação continua apontando às imagens do DeskComm original.\n' >&2
+  exit 1
+fi
 bash -n hostgator-setup-kit/install-single-server.sh
 bash -n hostgator-setup-kit/install.sh
+bash -n hostgator-setup-kit/_common.sh
 bash -n scripts/omni-preflight.sh
 bash -n install-infohelp-omni.sh
 grep -Fq 'exec bash "$ROOT_DIR/hostgator-setup-kit/install-single-server.sh"' install-infohelp-omni.sh
