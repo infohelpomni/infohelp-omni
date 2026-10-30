@@ -27,6 +27,7 @@ import { ThemeProvider } from "@/lib/theme";
 import { Providers } from "./providers";
 import { PublicEnvScript } from "./public-env-script";
 import "./globals.css";
+import "./omni-theme.css";
 
 // Fontes versionadas em app/fonts/ (origem e licença no README de lá): o
 // next/font/google as baixava durante o build, e o build caía quando o Google
@@ -335,6 +336,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="pt-BR"
       data-theme="light"
+      data-omni-theme=""
       suppressHydrationWarning
       className={`${atkinson.variable} ${plexMono.variable}`}
     >
