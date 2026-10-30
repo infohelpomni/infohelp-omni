@@ -1,0 +1,43 @@
+name: InfoHelp Omni — validação no runner próprio
+
+# Apenas alterações confiáveis nesta branch. Nunca execute código de PR externo
+# no computador pessoal que hospeda o runner.
+on:
+  push:
+    branches:
+      - infohelp/planejamento-instalador-v1
+    paths:
+      - ".github/workflows/omni-local-checks.yml"
+      - "app/**"
+      - "components/**"
+      - "tests/**"
+      - "scripts/**"
+      - "hostgator-setup-kit/**"
+      - "install-infohelp-omni.sh"
+      - "package.json"
+      - "pnpm-lock.yaml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: omni-local-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  shell-checks:
+    if: github.repository == 'infohelpomni/infohelp-omni' && github.ref == 'refs/heads/infohelp/planejamento-instalador-v1'
+    runs-on: [self-hosted, linux, x64, omni-build]
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Testar bootstrap do Omni
+        run: bash tests/shell/infohelp-omni-bootstrap.test.sh
+      - name: Testar instalação single-server
+        run: bash tests/shell/single-server-installer.test.sh
+      - name: Testar GoTrue e recuperação
+        run: bash tests/shell/gotrue-modelos-recuperacao.test.sh
+      - name: Testar operação single-server
+        run: bash tests/shell/single-server-operacao.test.sh
