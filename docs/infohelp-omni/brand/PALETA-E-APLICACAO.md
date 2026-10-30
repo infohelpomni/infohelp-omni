@@ -6,8 +6,8 @@ Fonte: arquivos SVG originais enviados pelo proprietário em 29/10/2026. As core
 
 | Contexto | Arquivo no fork |
 |---|---|
-| Fundo escuro | `logo-para-fundo-escuro.svg` (original `infohelp-omni-logo-claro.svg`, texto branco) |
-| Fundo claro | `logo-para-fundo-claro.svg` (original `infohelp-omni-logo-escuro.svg`, texto azul-marinho) |
+| Fundo escuro | `logo-para-fundo-escuro.svg` (arte original enviada pelo proprietário; texto branco) |
+| Fundo claro | `logo-para-fundo-claro.svg` (arte original enviada pelo proprietário; texto azul-marinho) |
 | Ícone/forma compacta | `simbolo.svg` |
 | Apresentações verticais | `logo-vertical.svg` |
 
