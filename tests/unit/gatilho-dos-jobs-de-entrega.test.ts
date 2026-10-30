@@ -241,6 +241,19 @@ const GATILHO_ESPERADO: Record<string, { condicao: string | null; efeito: string
       "Este é o check obrigatório `e2e`, a fachada da matriz. Precisa de `always()` para " +
       "ler o resultado das partes e reprovar `skipped`.",
   },
+  "omni-preflight.yml::shell-bootstrap": {
+    condicao: null,
+    efeito:
+      "Este job verifica o bootstrap e a ausência de credenciais versionadas no instalador Omni. " +
+      "Sem ele, uma alteração do kit pode quebrar a instalação sem sinalização dedicada.",
+  },
+  "omni-local-checks.yml::shell-checks": {
+    condicao:
+      "github.repository == 'infohelpomni/infohelp-omni' && github.ref == 'refs/heads/infohelp/planejamento-instalador-v1'",
+    efeito:
+      "Este job executa checks shell no runner particular. O gatilho restringe a execução " +
+      "ao repositório e branch interna; remover a restrição expõe a VM de desenvolvimento.",
+  },
   "perf.yml::build-and-size": {
     condicao: null,
     efeito: "Este é o check obrigatório `build-and-size` (`pnpm build` em Node 22).",
