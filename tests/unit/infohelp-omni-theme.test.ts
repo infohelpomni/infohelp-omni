@@ -10,7 +10,7 @@ type ThemeMap = Map<string, string>;
 function temas(): ThemeMap[] {
   const blocos = [...css.matchAll(/:root\[data-omni-theme\][^{]*\{([^}]*)\}/g)];
   return blocos.map(([, corpo]) => new Map(
-    [...(corpo ?? "").matchAll(/(--[a-z-]+):\s*(#[0-9a-f]{6})\s*;/g)]
+    [...(corpo ?? "").matchAll(/(--[a-z0-9-]+):\s*(#[0-9a-f]{6})\s*;/g)]
       .map(([, nome, valor]) => [nome!, valor!]),
   ));
 }
