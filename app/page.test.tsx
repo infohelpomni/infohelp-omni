@@ -35,7 +35,7 @@ describe("/ — a página inicial pública", () => {
   it("sem sessão: mostra o nome da marca, o que o produto faz e os links legais", async () => {
     await montar();
 
-    expect(screen.getByRole("heading", { level: 1, name: "Marca da Revenda" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: /Marca da Revenda/ })).toBeInTheDocument();
     expect(screen.getByText(/Atendimento e vendas pelo WhatsApp/)).toBeInTheDocument();
 
     const politica = screen
@@ -46,7 +46,11 @@ describe("/ — a página inicial pública", () => {
       "href",
       "/legal/terms",
     );
-    expect(screen.getByRole("link", { name: "Entrar" })).toHaveAttribute("href", "/login");
+    expect(screen.getByRole("link", { name: "Acessar sistema" })).toHaveAttribute("href", "/login");
+    expect(screen.getByRole("link", { name: /Quero conhecer o Omni/ })).toHaveAttribute(
+      "href",
+      expect.stringContaining("mailto:omni@infohelpsolucoes.com.br"),
+    );
   });
 
   it("o nome vem da marca resolvida, não de texto fixo", async () => {
