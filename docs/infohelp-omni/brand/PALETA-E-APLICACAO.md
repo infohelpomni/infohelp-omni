@@ -54,8 +54,8 @@ O gradiente pode ser usado em bordas, ícones, ilustrações e fundos decorativo
 
 1. O kit single-server do fork agora **semeia** `APP_ACCENT_HEX=#086AB7` apenas quando ainda não houver outra cor definida. Reinstalações preservam a cor existente.
 2. A configuração de marca da plataforma vive no **banco** depois da primeira inicialização; alterar o `.env` posteriormente não garante mudar a aparência já salva.
-3. A paleta **Omni** agora existe em `app/design/lib/tokens.ts` (`PALETTES.omni`) como opção adicional, preservando `sage`, `clay`, `mist`, `plum` e `olive`. Inclui rampas, superfícies e cores semânticas para claro/escuro. **Ainda não é a aparência padrão do aplicativo em produção**: o CSS global segue com a paleta-base original e o branding de instalação injeta a cor de destaque em runtime. A integração visual completa continua pendente de testes de regressão.
-4. Antes de mudar os tokens globais, mapear a nomenclatura do design system e seus testes de governança; preservar estados de erro/alerta/sucesso, acessibilidade e responsividade.
+3. A paleta **Omni** existe em `app/design/lib/tokens.ts` (`PALETTES.omni`) como opção adicional, preservando `sage`, `clay`, `mist`, `plum` e `olive`. O arquivo `app/omni-theme.css` agora aplica as superfícies, neutros, sombras e cores semânticas da identidade ao produto, claro e escuro, por meio do atributo `data-omni-theme` no layout raiz. O CSS base do DeskComm continua intacto e as cores de accent **não são redefinidas** pelo tema Omni, preservando o white-label por banco em runtime. **Ainda faltam testes de interface e execução da suíte completa** antes de declarar a personalização visual homologada.
+4. A sobreposição intencional é escopada pela marca deste fork e aplicada após o CSS-base. A régua de contraste do DeskComm lê `globals.css`; por isso, o teste Omni verifica separadamente os papéis adicionados. Ainda é necessário testar a **composição efetiva** das duas folhas e a marca dinâmica no navegador antes da publicação.
 5. Validar login, painel, conversas, formulários, tabelas, modais, gráficos e e-mails com screenshots nos dois temas.
 
 ## Tipografia
@@ -66,6 +66,7 @@ A logo usa **Space Grotesk**. A interface atual possui fonte própria em build. 
 
 - [ ] Integrar PNGs otimizados dos logos à configuração runtime de marca, evitando o upload de SVG.
 - [x] Definir a paleta Omni como opção adicional de design tokens e adicionar teste unitário de identidade/contraste.
-- [ ] Aplicar o tema Omni em runtime sem substituir o mecanismo de white-label nem quebrar testes de contraste.
+- [x] Implementar superfícies e cores semânticas do Omni no runtime sem redefinir o accent white-label, com testes unitários estáticos de contraste.
+- [ ] Validar a composição final de CSS e marca dinâmica em navegador para ambos os temas.
 - [ ] Validar contraste de todos os estados interativos.
 - [ ] Gerar screenshots reais antes da aprovação da interface.
