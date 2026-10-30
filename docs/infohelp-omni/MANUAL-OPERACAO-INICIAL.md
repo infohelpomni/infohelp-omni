@@ -84,11 +84,26 @@ Na raiz do repositório, o kit de produção usa múltiplos arquivos Compose/ove
 | Serviço não inicia | `docker compose ps`, logs específicos e volumes livres |
 | Atualização falha | Verificar backup anterior e documentação de rollback; não apagar volumes |
 
+## Validações confirmadas em VPS (30/10/2026)
+
+A pessoa responsável executou no servidor Ubuntu 24.04.2 (AlphaVPS C16G):
+
+- Docker Engine 29.9.2 e Docker Compose v5.6.1: `hello-world` executou normalmente.
+- UFW ativo com 22/80/443 TCP liberadas; SSH com chave pública e usuário `omniops` com `sudo`.
+- Configuração Docker `daemon.json` validada e driver de logs `local` confirmado.
+- Fork clonado em `/opt/infohelp-omni` na branch `infohelp/planejamento-instalador-v1`.
+- `bash install-infohelp-omni.sh --check`: **0 erros e 0 avisos**.
+- `bash tests/shell/infohelp-omni-bootstrap.test.sh`: **OK**.
+- DNS do Omni respondeu com IPs da Cloudflare; validar destino do registro antes da troca de tráfego.
+
+Essas provas são de **infraestrutura e sintaxe/contratos estáticos**. Não equivalem a `pnpm test:shell`, E2E, testes RLS nem instalação em produção. O workflow `.github/workflows/omni-preflight.yml` agora executa o bootstrap também nos runners do GitHub; verificar seu resultado na interface Actions.
+
 ## Pendências antes da publicação
 
 - [ ] Publicar e pinçar imagens Omni próprias (app, worker, scheduler), com validação de digest e rollback no mesmo namespace.
 
-- [ ] Executar testes de shell e análise sintática.
+- [x] Executar bootstrap Omni e análise sintática na VPS.
+- [ ] Executar a suíte shell **completa**, typecheck, unitários e E2E.
 - [ ] Verificar instalação fresca e segunda execução.
 - [ ] Confirmar administrador e organização corretos no banco.
 - [ ] Validar SMTP com endereço e credenciais reais em canal seguro.
