@@ -42,8 +42,9 @@ export default async function LoginPage({
           Seu espaço de trabalho
         </p>
         <h1 className="text-3xl font-semibold tracking-tight">{t("Entrar")}</h1>
+        <p className="text-sm text-muted-foreground">{marca.nome}</p>
         <p className="text-sm text-muted-foreground">
-          Bem-vindo ao {marca.nome}. Continue de onde seu atendimento parou.
+          Bem-vindo! Continue de onde seu atendimento parou.
         </p>
       </div>
       {reset === "success" && (
