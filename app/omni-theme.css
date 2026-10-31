@@ -1,0 +1,103 @@
+/*
+ * InfoHelp Omni 2.0 — superfícies e semânticas do tema da instalação.
+ *
+ * Escopado por data-omni-theme: o globals.css continua como sistema-base do
+ * DeskComm, incluindo seus testes de contraste e o mecanismo de white-label.
+ * Não redefinir --color-accent*, --color-brand nem fontes de dados de marca:
+ * essas propriedades são resolvidas em runtime pelo banco e por lib/branding/css.ts.
+ *
+ * Aplicado também a subárvores de pré-visualização light/dark. Ordem importa:
+ * este arquivo é importado DEPOIS de globals.css no layout raiz.
+ */
+:root[data-omni-theme],
+:root[data-omni-theme][data-theme="light"],
+:root[data-omni-theme] [data-theme="light"] {
+  --color-bg: #f6fbff;
+  --color-surface: #ffffff;
+  --color-surface-elevated: #eaf3f9;
+  --color-overlay: rgba(6, 16, 29, 0.45);
+
+  --color-text: #0b2439;
+  --color-text-muted: #47647d;
+  --color-text-subtle: #47647d;
+
+  --color-border: #d5e5f1;
+  --color-border-strong: #b8ccdc;
+
+  --color-neutral-50: #f6fbff;
+  --color-neutral-100: #eaf3f9;
+  --color-neutral-200: #d5e5f1;
+  --color-neutral-300: #b8ccdc;
+  --color-neutral-400: #91adc2;
+  --color-neutral-500: #67869d;
+  --color-neutral-600: #47647d;
+  --color-neutral-700: #324d65;
+  --color-neutral-800: #203b50;
+  --color-neutral-900: #0b2439;
+  --color-neutral-950: #06101d;
+
+  --color-success: #247647;
+  --color-success-bg: rgba(36, 118, 71, 0.12);
+  --color-success-fg: #175532;
+  --color-warning: #996010;
+  --color-warning-bg: rgba(153, 96, 16, 0.12);
+  --color-warning-fg: #754809;
+  --color-error: #aa383e;
+  --color-error-bg: rgba(170, 56, 62, 0.12);
+  --color-error-fg: #84232d;
+  --color-info: #086ab7;
+  --color-info-bg: rgba(8, 106, 183, 0.12);
+  --color-info-fg: #07548f;
+
+  --shadow-xs: 0 1px 2px rgba(11, 36, 57, 0.05);
+  --shadow-sm: 0 1px 3px rgba(11, 36, 57, 0.07);
+  --shadow-md: 0 4px 12px rgba(11, 36, 57, 0.09);
+  --shadow-lg: 0 12px 32px rgba(11, 36, 57, 0.12);
+  --shadow-xl: 0 24px 48px rgba(11, 36, 57, 0.17);
+}
+
+:root[data-omni-theme][data-theme="dark"],
+:root[data-omni-theme] [data-theme="dark"] {
+  --color-bg: #06101d;
+  --color-surface: #0b2439;
+  --color-surface-elevated: #122b48;
+  --color-overlay: rgba(0, 0, 0, 0.65);
+
+  --color-text: #f6fbff;
+  --color-text-muted: #9eb9cf;
+  --color-text-subtle: #9eb9cf;
+
+  --color-border: #365a78;
+  --color-border-strong: #567a98;
+
+  --color-neutral-50: #f6fbff;
+  --color-neutral-100: #dfeefa;
+  --color-neutral-200: #bcd5e7;
+  --color-neutral-300: #9eb9cf;
+  --color-neutral-400: #789bb7;
+  --color-neutral-500: #567a98;
+  --color-neutral-600: #365a78;
+  --color-neutral-700: #244563;
+  --color-neutral-800: #122b48;
+  --color-neutral-900: #0b2439;
+  --color-neutral-950: #06101d;
+
+  --color-success: #70c899;
+  --color-success-bg: rgba(112, 200, 153, 0.18);
+  --color-success-fg: #a1e2bf;
+  --color-warning: #ffc477;
+  --color-warning-bg: rgba(255, 196, 119, 0.18);
+  --color-warning-fg: #ffd7a1;
+  --color-error: #ff969e;
+  --color-error-bg: rgba(255, 150, 158, 0.18);
+  --color-error-fg: #ffb6ba;
+  --color-info: #72e0f1;
+  --color-info-bg: rgba(114, 224, 241, 0.18);
+  --color-info-fg: #a6eff7;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 48px rgba(0, 0, 0, 0.7);
+}

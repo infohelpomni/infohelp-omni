@@ -1,0 +1,60 @@
+name: InfoHelp Omni — gate rápido de instalação
+
+# Gate curto, independente do runner próprio ocupado pelos testes extensivos.
+# Não substitui CI/E2E, verificação de banco nem a publicação das imagens.
+on:
+  pull_request:
+    paths:
+      - "install-infohelp-omni.sh"
+      - "hostgator-setup-kit/**"
+      - "scripts/omni-preflight.sh"
+      - "tests/shell/**"
+      - "Dockerfile*"
+      - "docker-compose*.yml"
+      - ".github/workflows/omni-release-fast.yml"
+  push:
+    branches: ["infohelp/**", "main"]
+    paths:
+      - "install-infohelp-omni.sh"
+      - "hostgator-setup-kit/**"
+      - "scripts/omni-preflight.sh"
+      - "tests/shell/**"
+      - "Dockerfile*"
+      - "docker-compose*.yml"
+      - ".github/workflows/omni-release-fast.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: omni-release-fast-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  instalador-e-autenticacao:
+    name: Instalação e GoTrue (sem VPS e sem segredos)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validar sintaxe e bootstrap Omni
+        run: bash tests/shell/infohelp-omni-bootstrap.test.sh
+      - name: Validar instalador single-server
+        run: bash tests/shell/single-server-installer.test.sh
+      - name: Validar recuperação e e-mails GoTrue
+        run: bash tests/shell/gotrue-modelos-recuperacao.test.sh
+      - name: Validar operação single-server
+        run: bash tests/shell/single-server-operacao.test.sh
+      - name: Checar origens OCI sem construir imagem
+        shell: bash
+        run: |
+          set -euo pipefail
+          for arquivo in Dockerfile Dockerfile.worker Dockerfile.scheduler; do
+            grep -Fq 'org.opencontainers.image.source="https://github.com/infohelpomni/infohelp-omni"' "$arquivo"
+          done
+          grep -Fq 'IMG_NS="ghcr.io/infohelpomni"' hostgator-setup-kit/_common.sh
+          grep -Fq 'REPO_URL="${REPO_URL:-https://github.com/infohelpomni/infohelp-omni.git}"' hostgator-setup-kit/install.sh
+          echo "Origem das imagens e do instalador: fork InfoHelp confirmado."

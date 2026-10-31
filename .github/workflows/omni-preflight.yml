@@ -1,0 +1,43 @@
+name: InfoHelp Omni — validação inicial
+
+on:
+  pull_request:
+    paths:
+      - "install-infohelp-omni.sh"
+      - "scripts/omni-preflight.sh"
+      - "hostgator-setup-kit/install.sh"
+      - "hostgator-setup-kit/install-single-server.sh"
+      - "hostgator-setup-kit/_common.sh"
+      - "tests/shell/infohelp-omni-bootstrap.test.sh"
+      - ".github/workflows/omni-preflight.yml"
+  push:
+    branches:
+      - "infohelp/**"
+    paths:
+      - "install-infohelp-omni.sh"
+      - "scripts/omni-preflight.sh"
+      - "hostgator-setup-kit/install.sh"
+      - "hostgator-setup-kit/install-single-server.sh"
+      - "hostgator-setup-kit/_common.sh"
+      - "tests/shell/infohelp-omni-bootstrap.test.sh"
+      - ".github/workflows/omni-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shell-bootstrap:
+    name: Verificar instalador Omni sem VPS
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Baixar código do fork
+        uses: actions/checkout@v4
+      - name: Executar testes estáticos do bootstrap
+        run: bash tests/shell/infohelp-omni-bootstrap.test.sh
+      - name: Conferir ausência de segredos versionados nos arquivos do Omni
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -RIE '(SMTP_PASSWORD|OWNER_PASSWORD|POSTGRES_PASSWORD|SUPABASE_SERVICE_ROLE_KEY)=[^[:space:]#"\x27][^[:space:]]*'             --include='*.env' --include='*.sh' docs/infohelp-omni scripts/omni-preflight.sh install-infohelp-omni.sh

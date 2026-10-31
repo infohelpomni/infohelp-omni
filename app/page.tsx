@@ -1,10 +1,8 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { marcaDaSaida } from "@/lib/branding/saida";
-import { idiomaDoVisitante } from "@/lib/i18n/idiomaAnonimo";
-import { traduzir } from "@/lib/i18n/dicionario";
 import { createClient } from "@/lib/supabase/server";
+import { OmniLanding } from "@/components/marketing/OmniLanding";
 
 /**
  * A página inicial pública.
@@ -32,60 +30,5 @@ export default async function HomePage() {
   if (user) redirect("/app");
 
   const marca = await marcaDaSaida(null);
-  const idioma = await idiomaDoVisitante(null);
-  const t = (texto: string) => traduzir(texto, idioma);
-
-  return (
-    <div className="min-h-screen bg-muted/40">
-      <header className="border-b bg-background">
-        <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-6 py-4">
-          <p className="text-sm font-semibold tracking-tight">{marca.nome}</p>
-          <Link
-            href="/login"
-            className="rounded-md border px-3 py-1.5 text-sm font-medium hover:bg-muted"
-          >
-            {t("Entrar")}
-          </Link>
-        </div>
-      </header>
-
-      <main className="mx-auto w-full max-w-3xl space-y-6 px-6 py-12">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semibold tracking-tight">{marca.nome}</h1>
-          <p className="text-lg text-muted-foreground">
-            {t("Atendimento e vendas pelo WhatsApp, com agentes de inteligência artificial.")}
-          </p>
-        </div>
-
-        <p className="leading-relaxed">
-          {t("O")} {marca.nome}{" "}
-          {t(
-            "reúne em um só lugar as conversas com os clientes, o funil de vendas, a agenda de atendimentos e agentes de inteligência artificial que respondem, qualificam o interesse e passam a conversa para uma pessoa quando é preciso.",
-          )}
-        </p>
-
-        <p className="leading-relaxed">
-          {t("Quando a empresa conecta o Google Agenda, o")} {marca.nome}{" "}
-          {t(
-            "mostra a ocupação da agenda e cria, altera e cancela os agendamentos pedidos pela própria pessoa. Quando conecta o Google Ads, devolve ao anúncio as vendas que ele trouxe. O uso dos dados do Google está descrito na",
-          )}{" "}
-          <Link href="/legal/privacy#dados-do-google" className="underline underline-offset-2">
-            {t("Política de Privacidade")}
-          </Link>
-          .
-        </p>
-      </main>
-
-      <footer className="border-t bg-background">
-        <nav className="mx-auto flex w-full max-w-3xl flex-wrap gap-x-6 gap-y-2 px-6 py-4 text-sm">
-          <Link href="/legal/privacy" className="underline underline-offset-2">
-            {t("Política de Privacidade")}
-          </Link>
-          <Link href="/legal/terms" className="underline underline-offset-2">
-            {t("Termos de Uso")}
-          </Link>
-        </nav>
-      </footer>
-    </div>
-  );
+  return <OmniLanding nome={marca.nome} />;
 }

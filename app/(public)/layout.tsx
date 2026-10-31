@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { LogotipoDoProduto } from "@/components/branding/MarcaDoProduto";
 import { marcaEhADoProduto } from "@/lib/branding";
 import { marcaDaSaida } from "@/lib/branding/saida";
@@ -111,6 +112,25 @@ export default async function PublicLayout({ children }: { children: React.React
                   />
                 ) : null}
               </div>
+            </div>
+          ) : marca.nome === "InfoHelp Omni" ? (
+            <div className="flex justify-center">
+              <Image
+                src="/brand/omni-logo-dark.svg"
+                alt={marca.nome}
+                width={1260}
+                height={280}
+                className="h-auto w-48 dark:hidden"
+                priority
+              />
+              <Image
+                src="/brand/omni-logo-white.svg"
+                alt={marca.nome}
+                width={1260}
+                height={280}
+                className="hidden h-auto w-48 dark:block"
+                priority
+              />
             </div>
           ) : marcaEhADoProduto({ name: marca.nome, logoUrl: null }) ? (
             <div className="flex justify-center">
