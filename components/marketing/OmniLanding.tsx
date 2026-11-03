@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { idiomaDoVisitante } from "@/lib/i18n/idiomaAnonimo";
+import type { Idioma } from "@/lib/i18n/idiomas";
 import { traduzir } from "@/lib/i18n/dicionario";
 
 const recursos = [
@@ -61,8 +61,7 @@ const solicitarDemonstracao = `mailto:${endereco}?subject=${encodeURIComponent(
   "Olá! Quero saber mais sobre o InfoHelp Omni e conversar sobre uma demonstração.",
 )}`;
 
-export async function OmniLanding({ nome }: { nome: string }) {
-  const idioma = await idiomaDoVisitante(null);
+export function OmniLanding({ nome, idioma }: { nome: string; idioma: Idioma }) {
   const t = (texto: string) => traduzir(texto, idioma);
   return (
     <div className="min-h-dvh bg-[#06101d] text-[#f6fbff]">
