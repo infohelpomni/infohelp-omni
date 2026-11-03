@@ -42,8 +42,8 @@ Uso:
 
 --check   Verifica recursos sem alterar o servidor.
 --install Executa o kit single-server do fork (requer confirmação explícita).
-A configuração SMTP completa ainda é feita na interface Admin > E-mail,
-seguida da sincronização com o GoTrue pelo update.sh. Não envie senhas por chat.
+A configuração SMTP é feita em Admin > E-mail; sincronize com bash omni.sh smtp-sync.
+Manutenção: bash omni.sh --help. Nunca envie segredos por chat.
 USAGE
 }
 
@@ -82,6 +82,15 @@ case "$action" in
     printf 'O processo criará containers, redes, volumes e dados no servidor.\n'
     read -r -p 'Digite INSTALAR para confirmar: ' answer
     [[ "$answer" == "INSTALAR" ]] || { printf 'Operação cancelada.\n'; exit 0; }
+    # Cron é necessário para o agente de atualização e os backups diários.
+    if ! command -v crontab >/dev/null 2>&1; then
+      if [ "$(id -u)" -ne 0 ]; then
+        printf 'Cron ausente. Instale antes com: sudo apt-get update && sudo apt-get install -y cron\\n' >&2
+        exit 1
+      fi
+      apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y cron
+      systemctl enable --now cron
+    fi
     export OMNI_OWNER_EMAIL="omni@infohelpsolucoes.com.br"
     export REPO_URL="https://github.com/infohelpomni/infohelp-omni.git"
     exec bash "$ROOT_DIR/hostgator-setup-kit/install-single-server.sh" --domain "$domain"
