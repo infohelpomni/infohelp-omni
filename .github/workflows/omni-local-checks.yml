@@ -5,7 +5,7 @@ name: InfoHelp Omni — validação no runner próprio
 on:
   push:
     branches:
-      - infohelp/planejamento-instalador-v1
+      - 'infohelp/**'
     paths:
       - ".github/workflows/omni-local-checks.yml"
       - "app/**"
@@ -26,15 +26,17 @@ concurrency:
 
 jobs:
   shell-checks:
-    if: github.repository == 'infohelpomni/infohelp-omni' && github.ref == 'refs/heads/infohelp/planejamento-instalador-v1'
+    if: github.repository == 'infohelpomni/infohelp-omni' && startsWith(github.ref, 'refs/heads/infohelp/')
     runs-on: [self-hosted, linux, x64, omni-build]
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Testar bootstrap do Omni
-        run: bash tests/shell/infohelp-omni-bootstrap.test.sh
+      - name: Testar bootstrap e operação do Omni
+        run: |
+          bash tests/shell/infohelp-omni-bootstrap.test.sh
+          bash tests/shell/infohelp-omni-operations.test.sh
       - name: Testar instalação single-server
         run: bash tests/shell/single-server-installer.test.sh
       - name: Testar GoTrue e recuperação
