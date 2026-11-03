@@ -349,14 +349,16 @@ check "a guarda reconhece o marcador sem chamar o docker" \
   grep -q '^REAL$' "$WORK/caso6.txt"
 check "e de fato não chamou o docker" docker_nao_falou
 
-# O install.sh grava o marcador SÓ com o app saudável, e as duas receitas de
-# "recomeçar" o apagam junto com o `.env`. Um marcador que sobrasse depois de
-# derrubar tudo faria a guarda mentir sobre uma instalação que não existe mais
-# — a mesma classe de defeito que este conserto veio tirar.
+# O marcador nasce somente quando o app está saudável. O instalador Omni
+# NÃO aconselha mais apagar .env/volumes para "recomeçar" uma instalação:
+# essa sugestão destruía dados existentes de clientes. A recuperação técnica
+# interna ainda tem contrato próprio para limpar o marcador quando necessário.
 check "o install.sh só grava o marcador quando o app está saudável" \
   grep -qE 'if \[ "\$\{APP_SAUDAVEL:-0\}" = 1 \]; then' "$REPO_ROOT/hostgator-setup-kit/install.sh"
-check "e a receita de 'recomeçar' apaga o marcador junto com o .env" \
-  grep -q 'rm -f .env ${MARCA_INSTALACAO_NOME' "$REPO_ROOT/hostgator-setup-kit/install.sh"
+check "e a tela final alerta para não apagar os volumes" \
+  grep -Fq "Não use 'docker compose down -v'" "$REPO_ROOT/hostgator-setup-kit/install.sh"
+check "e a tela final não recomenda apagar o .env para recomeçar" \
+  bash -c '! grep -q '\''rm -f .env ${MARCA_INSTALACAO_NOME'\'' "$1"' _ "$REPO_ROOT/hostgator-setup-kit/install.sh"
 check "e o painel de recuperação do install.sh também o apaga" \
   grep -q 'rm -f \${MARCA_INSTALACAO_NOME' "$REPO_ROOT/hostgator-setup-kit/install.sh"
 check "e o marcador está no .gitignore (estado da VPS, não do repositório)" \
