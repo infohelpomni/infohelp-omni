@@ -110,7 +110,7 @@ test.describe("Prospecção a partir da própria planilha (spec 30)", () => {
     ).toBeVisible();
 
     // 3. a campanha nova, com o rótulo "Planilha" e as 3 empresas na lista.
-    await expect(page.getByRole("heading", { name: NOME_CAMPANHA })).toBeVisible();
+    await expect(page.getByRole("heading", { name: NOME_CAMPANHA, level: 2 })).toBeVisible();
     await expect(
       page.getByRole("button", { name: new RegExp(`${NOME_CAMPANHA}.*Planilha · .*3 empresas`) }),
     ).toBeVisible();
