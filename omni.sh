@@ -48,6 +48,16 @@ case "${1:-}" in
     for file in "${dbs[@]}"; do
       if gzip -t "$file"; then echo "OK: $(basename "$file")"; else echo "ERRO: $file" >&2; failed=1; fi
     done
+    # Os arquivos podem faltar se a sessão WhatsApp ainda não existe.
+    archives=("$backup_dir"/waha-*.tgz "$backup_dir"/storage-*.tgz)
+    for file in "${archives[@]}"; do
+      if tar -tzf "$file" >/dev/null; then
+        echo "OK: $(basename "$file")"
+      else
+        echo "ERRO: $file" >&2
+        failed=1
+      fi
+    done
     exit "$failed"
     ;;
   smtp-sync)
