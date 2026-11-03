@@ -18,7 +18,7 @@ KIT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 REPO_URL="${REPO_URL:-https://github.com/infohelpomni/infohelp-omni.git}"
 # Uma constante, dois usos (o fim feliz e o fim travado) — e o comecar.sh tem a
 # gêmea. Link repetido à mão vira link divergente na primeira troca.
-COMUNIDADE_URL="https://lp-comunidade.automatiklabs.com.br"
+COMUNIDADE_URL="https://omni.infohelpsolucoes.com.br"
 REPO_DIR="${REPO_DIR:-deskcommcrm}"
 COMPOSE="docker-compose.prod.yml"
 COMPOSE_TRAEFIK="docker-compose.traefik.yml"
@@ -177,35 +177,12 @@ fase() { printf '\n'; paint 1 "━━━ $(t "Fase") $1/$FASE_TOTAL · $2"; }
 # pedaço de █ e embaralharia o desenho na VPS de quem roda em locale C.
 LOGO_COLS=71
 banner() {
-  local cols linha ch
-  cols="$(tput cols 2>/dev/null || echo 80)"
-  case "$cols" in ''|*[!0-9]*) cols=80;; esac
   printf '\n'
-  # Terminal estreito recebe a versão de uma linha: logo quebrado no meio é
-  # pior do que logo nenhum.
-  if [ "$COLOR" != 1 ] || [ "$cols" -lt $((LOGO_COLS + 2)) ]; then
-    paint 1 "  DESKCOMM"
-  else
-    # Tela limpa: tira o ruído do clone/apt de cima do logo. Exige TTY de
-    # verdade (não basta COLOR=1): com FORCE_COLOR numa saída redirecionada, um
-    # "limpe a tela" no meio do arquivo é lixo que ninguém pediu.
-    [ -t 1 ] && printf '\033[2J\033[H'
-    while IFS= read -r linha; do
-      linha="${linha//█/$'\033[32m'█$'\033[0m'}"
-      for ch in ═ ╗ ║ ╝ ╚ ╔; do linha="${linha//$ch/$'\033[2m'$ch$'\033[0m'}"; done
-      printf '  %s\n' "$linha"
-    done <<'LOGO'
-██████╗ ███████╗███████╗██╗  ██╗ ██████╗ ██████╗ ███╗   ███╗███╗   ███╗
-██╔══██╗██╔════╝██╔════╝██║ ██╔╝██╔════╝██╔═══██╗████╗ ████║████╗ ████║
-██║  ██║█████╗  ███████╗█████╔╝ ██║     ██║   ██║██╔████╔██║██╔████╔██║
-██║  ██║██╔══╝  ╚════██║██╔═██╗ ██║     ██║   ██║██║╚██╔╝██║██║╚██╔╝██║
-██████╔╝███████╗███████║██║  ██╗╚██████╗╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║
-╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝
-LOGO
-  fi
+  c_grn '  ╔══════════════════════════════════════════════╗'
+  c_grn '  ║             INFOHELP  ·  OMNI 2.0            ║'
+  c_grn '  ╚══════════════════════════════════════════════╝'
+  c_dim '  Atendimento inteligente e gestão em um só lugar.'
   printf '\n'
-  c_dim "$(t "  Agentes de IA que atendem no WhatsApp, dentro do seu CRM.")"
-  c_dim "$(t "  Open-source · roda no seu servidor · os dados são seus.")"
 }
 
 # ── Rede de segurança: nenhuma saída silenciosa ─────────────────────────────
@@ -2620,7 +2597,7 @@ $(c_ylw "═══════════════════════�
   $(t "Quando der 307, rode de novo o mesmo comando de instalação: ele confere")
   $(t "o que falta e termina, sem apagar nada.")
 
-  $(t "Travou? Leve o log para a comunidade — tem gente que já passou por isso:")
+  $(t "Suporte e documentação InfoHelp Omni:")
 
        ${COMUNIDADE_URL}
 
@@ -2651,7 +2628,7 @@ $(c_ylw "═══════════════════════�
 
        docker compose $(dc_files) up -d
 
-  $(t "Travou? Leve o log para a comunidade — tem gente que já passou por isso:")
+  $(t "Suporte e documentação InfoHelp Omni:")
 
        ${COMUNIDADE_URL}
 
@@ -2701,10 +2678,9 @@ $(pendencia_da_ia)
        $(t "Configurações → Segurança (guarde os códigos de recuperação).")
        $(t "Perdeu o celular?") bash hostgator-setup-kit/reset-mfa.sh ${OWNER_EMAIL}
 
-$(c_grn "  ─── $(t "A comunidade") ──────────────────────────────────────")
+$(c_grn "  ─── InfoHelp Omni ──────────────────────────────────────")
 
-  $(t "É onde saem os avisos de versão nova, os agentes que outras pessoas já")
-  $(t "configuraram e a resposta de quem roda exatamente este CRM:")
+  $(t "Informações e suporte:")
 
        ${COMUNIDADE_URL}
 
@@ -2713,11 +2689,11 @@ $(telemetria_no_banner)
   $(t "Comandos úteis:")
     $(t "ver logs:")      docker compose $(dc_files) logs -f app
     $(t "reiniciar:")     docker compose $(dc_files) restart
-    $(t "atualizar:")     bash hostgator-setup-kit/update.sh
-    $(t "backup:")        bash hostgator-setup-kit/backup.sh
+    $(t "atualizar:")     bash omni.sh update
+    $(t "backup:")        bash omni.sh backup
+    $(t "sincronizar SMTP:") bash omni.sh smtp-sync
     $(t "trocar config:") bash hostgator-setup-kit/install.sh
                    $(t "(mostra tudo o que você respondeu e deixa corrigir por número)")
-    $(t "recomeçar:")     docker compose $(dc_files) down -v && rm -f .env ${MARCA_INSTALACAO_NOME:-.deskcomm-instalado}
-                   $(t "(derruba tudo; depois rode o install.sh de novo)")
+    $(t "atenção:")      Não use 'docker compose down -v': isso apaga dados persistentes.
 
 DONE
