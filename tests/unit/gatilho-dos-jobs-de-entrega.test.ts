@@ -255,7 +255,7 @@ const GATILHO_ESPERADO: Record<string, { condicao: string | null; efeito: string
   },
   "omni-local-checks.yml::shell-checks": {
     condicao:
-      "github.repository == 'infohelpomni/infohelp-omni' && github.ref == 'refs/heads/infohelp/planejamento-instalador-v1'",
+      "github.repository == 'infohelpomni/infohelp-omni' && startsWith(github.ref, 'refs/heads/infohelp/')",
     efeito:
       "Este job executa checks shell no runner particular. O gatilho restringe a execução " +
       "ao repositório e branch interna; remover a restrição expõe a VM de desenvolvimento.",
