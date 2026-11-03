@@ -241,6 +241,12 @@ const GATILHO_ESPERADO: Record<string, { condicao: string | null; efeito: string
       "Este é o check obrigatório `e2e`, a fachada da matriz. Precisa de `always()` para " +
       "ler o resultado das partes e reprovar `skipped`.",
   },
+  "omni-release-fast.yml::instalador-e-autenticacao": {
+    condicao: null,
+    efeito:
+      "Verifica rapidamente boot do instalador e configuração de autenticação GoTrue. " +
+      "Sem este gate uma regressão do single-server pode chegar à VPS sem sinalização.",
+  },
   "omni-preflight.yml::shell-bootstrap": {
     condicao: null,
     efeito:
