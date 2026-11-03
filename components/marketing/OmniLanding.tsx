@@ -91,7 +91,7 @@ export async function OmniLanding({ nome }: { nome: string }) {
               href="/login"
               className="inline-flex min-h-11 items-center rounded-xl border border-[#50e6ed]/40 px-4 py-2 text-sm font-semibold text-[#f6fbff] transition hover:border-[#50e6ed] hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#50e6ed]"
             >
-              Acessar sistema
+              {t("Acessar sistema")}
             </Link>
           </nav>
         </header>
@@ -101,31 +101,31 @@ export async function OmniLanding({ nome }: { nome: string }) {
             <div className="max-w-2xl">
               <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#50e6ed]/25 bg-[#50e6ed]/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#50e6ed]">
                 <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[#50e6ed]" />
-                Uma nova forma de atender e vender
+                {t("Uma nova forma de atender e vender")}
               </p>
               <h1 className="text-5xl font-semibold leading-[1.08] tracking-[-0.045em] sm:text-6xl xl:text-7xl">
                 {nome}
                 <span className="mt-4 block text-[#50e6ed]">{t("Seu atendimento pode ir muito além.")}</span>
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-[#bcd5e7]">
-                Atendimento e vendas pelo WhatsApp, CRM e agentes de inteligência artificial em uma experiência mais conectada para o seu negócio.
+                {t("Atendimento e vendas pelo WhatsApp, CRM e agentes de inteligência artificial em uma experiência mais conectada para o seu negócio.")}
               </p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <a
                   href={solicitarDemonstracao}
                   className="inline-flex min-h-12 items-center justify-center rounded-xl bg-[#50e6ed] px-6 py-3 text-sm font-bold text-[#0b2439] shadow-[0_15px_45px_rgba(80,230,237,0.18)] transition hover:bg-[#a2f5f7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
-                  Quero conhecer o Omni <span aria-hidden="true" className="ml-2">↗</span>
+                  {t("Quero conhecer o Omni")} <span aria-hidden="true" className="ml-2">↗</span>
                 </a>
                 <a
                   href="#recursos"
                   className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/10"
                 >
-                  Explorar recursos
+                  {t("Explorar recursos")}
                 </a>
               </div>
               <p className="mt-6 text-xs text-[#9eb9cf]">
-                Solução personalizável para equipes que querem unir atendimento, relacionamento e operação.
+                {t("Solução personalizável para equipes que querem unir atendimento, relacionamento e operação.")}
               </p>
             </div>
 
@@ -174,7 +174,7 @@ export async function OmniLanding({ nome }: { nome: string }) {
                   </div>
                 </div>
                 <p className="border-t border-white/10 px-4 py-3 text-right text-[10px] text-[#9eb9cf]">
-                  Representação ilustrativa da experiência
+                  {t("Representação ilustrativa da experiência")}
                 </p>
               </div>
             </div>
@@ -184,7 +184,7 @@ export async function OmniLanding({ nome }: { nome: string }) {
             <div className="mx-auto max-w-7xl">
               <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#50e6ed]">{t("Tudo conversa. Tudo evolui.")}</p>
               <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
-                Tecnologia para atender melhor e transformar conversas em oportunidades.
+                {t("Tecnologia para atender melhor e transformar conversas em oportunidades.")}
               </h2>
               <p className="mt-5 max-w-2xl text-[#bcd5e7]">{t("O Omni reúne recursos de atendimento, CRM e automação em uma operação mais organizada.")}</p>
               <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -206,7 +206,7 @@ export async function OmniLanding({ nome }: { nome: string }) {
           <section id="como-funciona" className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
             <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a497ff]">{t("Na prática")}</p>
             <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
-              Mais clareza para o time. Mais continuidade para o cliente.
+              {t("Mais clareza para o time. Mais continuidade para o cliente.")}
             </h2>
             <div className="mt-12 grid gap-5 md:grid-cols-3">
               {passos.map((passo) => (
@@ -224,13 +224,13 @@ export async function OmniLanding({ nome }: { nome: string }) {
               <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#a497ff]/20 blur-3xl" />
               <p className="relative text-xs font-bold uppercase tracking-[0.2em] text-[#50e6ed]">{t("O próximo nível começa aqui")}</p>
               <h2 className="relative mx-auto mt-5 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
-                Pronto para descobrir o que o Omni pode fazer pela sua operação?
+                {t("Pronto para descobrir o que o Omni pode fazer pela sua operação?")}
               </h2>
               <p className="relative mx-auto mt-5 max-w-xl text-sm leading-relaxed text-[#dfeefa] sm:text-base">
-                Converse com a InfoHelp sobre os recursos, possibilidades de implantação e próximos passos.
+                {t("Converse com a InfoHelp sobre os recursos, possibilidades de implantação e próximos passos.")}
               </p>
               <a href={solicitarDemonstracao} className="relative mt-8 inline-flex min-h-12 items-center justify-center rounded-xl bg-[#50e6ed] px-7 py-3 text-sm font-bold text-[#0b2439] transition hover:bg-[#a2f5f7]">
-                Solicitar apresentação <span aria-hidden="true" className="ml-2">↗</span>
+                {t("Solicitar apresentação")} <span aria-hidden="true" className="ml-2">↗</span>
               </a>
             </div>
           </section>
