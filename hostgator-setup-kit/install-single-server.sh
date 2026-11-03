@@ -237,6 +237,11 @@ else
   # um `true` órfão interpolando.
   set_env_var "$supabase_env" TRAEFIK_ENABLE false
 fi
+# Preserva sobreposições locais de OAuth entre atualizações/reconfigurações.
+# A chave privada continua apenas em .runtime/supabase/.env, nunca no Git.
+if [ -f "$SUPABASE_DIR/docker-compose.google.yml" ]; then
+  compose_file="${compose_file}:docker-compose.google.yml"
+fi
 set_env_var "$supabase_env" COMPOSE_FILE "$compose_file"
 set_env_var "$supabase_env" COMPOSE_PROJECT_NAME "$(projeto_do_supabase)"
 [[ -n "${API_GW_HTTP_PORT:-}" ]] && set_env_var "$supabase_env" API_GW_HTTP_PORT "$API_GW_HTTP_PORT"
