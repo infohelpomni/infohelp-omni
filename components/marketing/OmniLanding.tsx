@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { idiomaDoVisitante } from "@/lib/i18n/idiomaAnonimo";
+import { traduzir } from "@/lib/i18n/dicionario";
 
 const recursos = [
   {
@@ -59,7 +61,9 @@ const solicitarDemonstracao = `mailto:${endereco}?subject=${encodeURIComponent(
   "Olá! Quero saber mais sobre o InfoHelp Omni e conversar sobre uma demonstração.",
 )}`;
 
-export function OmniLanding({ nome }: { nome: string }) {
+export async function OmniLanding({ nome }: { nome: string }) {
+  const idioma = await idiomaDoVisitante(null);
+  const t = (texto: string) => traduzir(texto, idioma);
   return (
     <div className="min-h-dvh bg-[#06101d] text-[#f6fbff]">
       <div className="relative isolate overflow-hidden">
@@ -74,14 +78,14 @@ export function OmniLanding({ nome }: { nome: string }) {
         />
 
         <header className="border-b border-white/10 bg-[#06101d]/85">
-          <nav aria-label="Navegação principal" className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
-            <Link href="/" aria-label="Início — InfoHelp Omni" className="block shrink-0">
+          <nav aria-label={t("Navegação principal")} className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-5 sm:px-8">
+            <Link href="/" aria-label={t("Início — InfoHelp Omni")} className="block shrink-0">
               <Image src="/brand/omni-logo-white.svg" alt="InfoHelp Omni" width={1260} height={280} className="h-auto w-40 sm:w-48" priority />
             </Link>
             <div className="hidden items-center gap-8 text-sm text-[#bcd5e7] md:flex">
-              <a href="#recursos" className="transition hover:text-[#50e6ed]">Recursos</a>
-              <a href="#como-funciona" className="transition hover:text-[#50e6ed]">Como funciona</a>
-              <a href="#demonstracao" className="transition hover:text-[#50e6ed]">Demonstração</a>
+              <a href="#recursos" className="transition hover:text-[#50e6ed]">{t("Recursos")}</a>
+              <a href="#como-funciona" className="transition hover:text-[#50e6ed]">{t("Como funciona")}</a>
+              <a href="#demonstracao" className="transition hover:text-[#50e6ed]">{t("Demonstração")}</a>
             </div>
             <Link
               href="/login"
@@ -101,7 +105,7 @@ export function OmniLanding({ nome }: { nome: string }) {
               </p>
               <h1 className="text-5xl font-semibold leading-[1.08] tracking-[-0.045em] sm:text-6xl xl:text-7xl">
                 {nome}
-                <span className="mt-4 block text-[#50e6ed]">Seu atendimento pode ir muito além.</span>
+                <span className="mt-4 block text-[#50e6ed]">{t("Seu atendimento pode ir muito além.")}</span>
               </h1>
               <p className="mt-8 max-w-xl text-lg leading-relaxed text-[#bcd5e7]">
                 Atendimento e vendas pelo WhatsApp, CRM e agentes de inteligência artificial em uma experiência mais conectada para o seu negócio.
@@ -125,7 +129,7 @@ export function OmniLanding({ nome }: { nome: string }) {
               </p>
             </div>
 
-            <div aria-label="Exemplo ilustrativo da central de atendimento" className="relative mx-auto w-full max-w-xl">
+            <div aria-label={t("Exemplo ilustrativo da central de atendimento")} className="relative mx-auto w-full max-w-xl">
               <div className="absolute -inset-2 rounded-[2rem] bg-gradient-to-tr from-[#50e6ed]/30 via-[#1588e8]/20 to-[#a497ff]/30 blur-2xl" aria-hidden="true" />
               <div className="relative overflow-hidden rounded-[1.75rem] border border-[#9eb9cf]/20 bg-[#0b2439] shadow-2xl">
                 <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
@@ -141,30 +145,30 @@ export function OmniLanding({ nome }: { nome: string }) {
                   <div className="border-r border-white/10 p-3 sm:p-4">
                     <div className="mb-5 h-2 w-16 rounded-full bg-[#50e6ed]/80" />
                     {["Conversas", "Contatos", "Funil", "Agenda"].map((item, index) => (
-                      <div key={item} className={`mb-2 rounded-lg px-2 py-3 text-[11px] sm:text-xs ${index === 0 ? "bg-[#50e6ed]/15 text-[#50e6ed]" : "text-[#9eb9cf]"}`}>{item}</div>
+                      <div key={item} className={`mb-2 rounded-lg px-2 py-3 text-[11px] sm:text-xs ${index === 0 ? "bg-[#50e6ed]/15 text-[#50e6ed]" : "text-[#9eb9cf]"}`}>{t(item)}</div>
                     ))}
                   </div>
                   <div className="space-y-5 p-4 sm:p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs text-[#9eb9cf]">Atendimento</p>
-                        <p className="mt-1 text-sm font-semibold sm:text-base">Visão da equipe</p>
+                        <p className="text-xs text-[#9eb9cf]">{t("Atendimento")}</p>
+                        <p className="mt-1 text-sm font-semibold sm:text-base">{t("Visão da equipe")}</p>
                       </div>
-                      <span className="rounded-full bg-[#70c899]/15 px-2 py-1 text-[10px] font-semibold text-[#a1e2bf]">Em andamento</span>
+                      <span className="rounded-full bg-[#70c899]/15 px-2 py-1 text-[10px] font-semibold text-[#a1e2bf]">{t("Em andamento")}</span>
                     </div>
                     <div className="rounded-xl border border-[#365a78] bg-[#122b48] p-3 sm:p-4">
-                      <p className="mb-3 text-xs text-[#9eb9cf]">Nova conversa</p>
-                      <div className="w-[82%] rounded-xl rounded-tl-sm bg-[#365a78] p-3 text-xs leading-relaxed text-[#f6fbff]">Olá! Gostaria de saber mais sobre os serviços.</div>
-                      <div className="ml-auto mt-3 w-[88%] rounded-xl rounded-tr-sm bg-[#086ab7] p-3 text-xs leading-relaxed text-white">Claro! Vamos encontrar a melhor solução para você.</div>
+                      <p className="mb-3 text-xs text-[#9eb9cf]">{t("Nova conversa")}</p>
+                      <div className="w-[82%] rounded-xl rounded-tl-sm bg-[#365a78] p-3 text-xs leading-relaxed text-[#f6fbff]">{t("Olá! Gostaria de saber mais sobre os serviços.")}</div>
+                      <div className="ml-auto mt-3 w-[88%] rounded-xl rounded-tr-sm bg-[#086ab7] p-3 text-xs leading-relaxed text-white">{t("Claro! Vamos encontrar a melhor solução para você.")}</div>
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div className="rounded-xl border border-[#365a78] bg-[#122b48] p-3">
-                        <span className="text-[10px] text-[#9eb9cf]">Próximo passo</span>
-                        <p className="mt-2 text-xs font-semibold text-[#50e6ed]">Qualificação</p>
+                        <span className="text-[10px] text-[#9eb9cf]">{t("Próximo passo")}</span>
+                        <p className="mt-2 text-xs font-semibold text-[#50e6ed]">{t("Qualificação")}</p>
                       </div>
                       <div className="rounded-xl border border-[#365a78] bg-[#122b48] p-3">
-                        <span className="text-[10px] text-[#9eb9cf]">Equipe</span>
-                        <p className="mt-2 text-xs font-semibold">Humano + IA</p>
+                        <span className="text-[10px] text-[#9eb9cf]">{t("Equipe")}</span>
+                        <p className="mt-2 text-xs font-semibold">{t("Humano + IA")}</p>
                       </div>
                     </div>
                   </div>
@@ -178,11 +182,11 @@ export function OmniLanding({ nome }: { nome: string }) {
 
           <section id="recursos" className="border-y border-white/10 bg-[#0b2439]/70 px-5 py-24 sm:px-8">
             <div className="mx-auto max-w-7xl">
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#50e6ed]">Tudo conversa. Tudo evolui.</p>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#50e6ed]">{t("Tudo conversa. Tudo evolui.")}</p>
               <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
                 Tecnologia para atender melhor e transformar conversas em oportunidades.
               </h2>
-              <p className="mt-5 max-w-2xl text-[#bcd5e7]">O Omni reúne recursos de atendimento, CRM e automação em uma operação mais organizada.</p>
+              <p className="mt-5 max-w-2xl text-[#bcd5e7]">{t("O Omni reúne recursos de atendimento, CRM e automação em uma operação mais organizada.")}</p>
               <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {recursos.map((item) => (
                   <article key={item.numero} className="group rounded-2xl border border-white/10 bg-[#122b48]/80 p-7 transition hover:-translate-y-1 hover:border-[#50e6ed]/50">
@@ -190,9 +194,9 @@ export function OmniLanding({ nome }: { nome: string }) {
                       <span className="text-sm font-bold text-[#50e6ed]">{item.numero}</span>
                       <span className="h-2 w-2 rounded-full bg-[#a497ff]" />
                     </div>
-                    <h3 className="mt-10 text-xl font-semibold">{item.titulo}</h3>
-                    <p className="mt-3 min-h-24 text-sm leading-relaxed text-[#bcd5e7]">{item.descricao}</p>
-                    <p className="mt-4 text-xs font-semibold text-[#50e6ed]">{item.destaque}</p>
+                    <h3 className="mt-10 text-xl font-semibold">{t(item.titulo)}</h3>
+                    <p className="mt-3 min-h-24 text-sm leading-relaxed text-[#bcd5e7]">{t(item.descricao)}</p>
+                    <p className="mt-4 text-xs font-semibold text-[#50e6ed]">{t(item.destaque)}</p>
                   </article>
                 ))}
               </div>
@@ -200,7 +204,7 @@ export function OmniLanding({ nome }: { nome: string }) {
           </section>
 
           <section id="como-funciona" className="mx-auto max-w-7xl px-5 py-24 sm:px-8">
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a497ff]">Na prática</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#a497ff]">{t("Na prática")}</p>
             <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
               Mais clareza para o time. Mais continuidade para o cliente.
             </h2>
@@ -208,8 +212,8 @@ export function OmniLanding({ nome }: { nome: string }) {
               {passos.map((passo) => (
                 <div key={passo.numero} className="border-t border-[#50e6ed]/50 pt-6">
                   <span className="text-3xl font-semibold text-[#50e6ed]">{passo.numero}</span>
-                  <h3 className="mt-5 text-xl font-semibold">{passo.titulo}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-[#bcd5e7]">{passo.descricao}</p>
+                  <h3 className="mt-5 text-xl font-semibold">{t(passo.titulo)}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#bcd5e7]">{t(passo.descricao)}</p>
                 </div>
               ))}
             </div>
@@ -218,7 +222,7 @@ export function OmniLanding({ nome }: { nome: string }) {
           <section id="demonstracao" className="px-5 pb-24 sm:px-8">
             <div className="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] border border-[#50e6ed]/20 bg-gradient-to-br from-[#122b48] via-[#0b416b] to-[#122b48] px-7 py-14 text-center sm:px-12 sm:py-20">
               <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-[#a497ff]/20 blur-3xl" />
-              <p className="relative text-xs font-bold uppercase tracking-[0.2em] text-[#50e6ed]">O próximo nível começa aqui</p>
+              <p className="relative text-xs font-bold uppercase tracking-[0.2em] text-[#50e6ed]">{t("O próximo nível começa aqui")}</p>
               <h2 className="relative mx-auto mt-5 max-w-3xl text-3xl font-semibold tracking-tight sm:text-5xl">
                 Pronto para descobrir o que o Omni pode fazer pela sua operação?
               </h2>
@@ -236,12 +240,12 @@ export function OmniLanding({ nome }: { nome: string }) {
           <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div>
               <p className="font-semibold text-[#f6fbff]">InfoHelp Omni</p>
-              <p className="mt-1">Atendimento, CRM e automação em uma só direção.</p>
+              <p className="mt-1">{t("Atendimento, CRM e automação em uma só direção.")}</p>
             </div>
             <nav aria-label="Links legais" className="flex flex-wrap gap-5">
-              <Link href="/login" className="hover:text-white">Área do cliente</Link>
-              <Link href="/legal/privacy" className="hover:text-white">Política de Privacidade</Link>
-              <Link href="/legal/terms" className="hover:text-white">Termos de Uso</Link>
+              <Link href="/login" className="hover:text-white">{t("Área do cliente")}</Link>
+              <Link href="/legal/privacy" className="hover:text-white">{t("Política de Privacidade")}</Link>
+              <Link href="/legal/terms" className="hover:text-white">{t("Termos de Uso")}</Link>
             </nav>
           </div>
         </footer>
