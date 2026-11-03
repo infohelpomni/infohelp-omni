@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { marcaDaSaida } from "@/lib/branding/saida";
 import { createClient } from "@/lib/supabase/server";
 import { OmniLanding } from "@/components/marketing/OmniLanding";
+import { idiomaDoVisitante } from "@/lib/i18n/idiomaAnonimo";
 
 /**
  * A página inicial pública.
@@ -30,5 +31,6 @@ export default async function HomePage() {
   if (user) redirect("/app");
 
   const marca = await marcaDaSaida(null);
-  return <OmniLanding nome={marca.nome} />;
+  const idioma = await idiomaDoVisitante(null);
+  return <OmniLanding nome={marca.nome} idioma={idioma} />;
 }
