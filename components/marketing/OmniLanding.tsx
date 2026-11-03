@@ -144,8 +144,8 @@ export async function OmniLanding({ nome }: { nome: string }) {
                 <div className="grid min-h-[380px] grid-cols-[120px_1fr] sm:grid-cols-[165px_1fr]">
                   <div className="border-r border-white/10 p-3 sm:p-4">
                     <div className="mb-5 h-2 w-16 rounded-full bg-[#50e6ed]/80" />
-                    {["Conversas", "Contatos", "Funil", "Agenda"].map((item, index) => (
-                      <div key={item} className={`mb-2 rounded-lg px-2 py-3 text-[11px] sm:text-xs ${index === 0 ? "bg-[#50e6ed]/15 text-[#50e6ed]" : "text-[#9eb9cf]"}`}>{t(item)}</div>
+                    {[t("Conversas"), t("Contatos"), t("Funil"), t("Agenda")].map((item, index) => (
+                      <div key={item} className={`mb-2 rounded-lg px-2 py-3 text-[11px] sm:text-xs ${index === 0 ? "bg-[#50e6ed]/15 text-[#50e6ed]" : "text-[#9eb9cf]"}`}>{item}</div>
                     ))}
                   </div>
                   <div className="space-y-5 p-4 sm:p-6">
