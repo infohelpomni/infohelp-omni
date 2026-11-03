@@ -55,7 +55,7 @@ jobs:
           for arquivo in Dockerfile Dockerfile.worker Dockerfile.scheduler; do
             grep -Fq 'org.opencontainers.image.source="https://github.com/infohelpomni/infohelp-omni"' "$arquivo"
           done
-          esperado="ghcr.io/${GITHUB_REPOSITORY,,}"
+          esperado="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}"
           grep -Fq "IMG_NS=\"$esperado\"" hostgator-setup-kit/_common.sh
           grep -Fq 'REPO_URL="${REPO_URL:-https://github.com/infohelpomni/infohelp-omni.git}"' hostgator-setup-kit/install.sh
           echo "Origem das imagens e do instalador: fork InfoHelp confirmado."
