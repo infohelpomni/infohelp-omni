@@ -13,7 +13,7 @@ describe("InfoHelp Omni — marketing sem regressão na autenticação", () => {
     expect(inicio).toContain('export const dynamic = "force-dynamic"');
     expect(inicio).toContain("supabase.auth.getUser()");
     expect(inicio).toContain('if (user) redirect("/app")');
-    expect(inicio).toContain("<OmniLanding nome={marca.nome} />");
+    expect(inicio).toContain("<OmniLanding nome={marca.nome} idioma={idioma} />");
   });
 
   it("a landing possui CTA real, login e documentos legais", () => {
