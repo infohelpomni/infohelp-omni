@@ -2597,7 +2597,7 @@ $(c_ylw "═══════════════════════�
   $(t "Quando der 307, rode de novo o mesmo comando de instalação: ele confere")
   $(t "o que falta e termina, sem apagar nada.")
 
-  $(t "Suporte e documentação InfoHelp Omni:")
+  Suporte e documentação InfoHelp Omni:
 
        ${COMUNIDADE_URL}
 
@@ -2628,7 +2628,7 @@ $(c_ylw "═══════════════════════�
 
        docker compose $(dc_files) up -d
 
-  $(t "Suporte e documentação InfoHelp Omni:")
+  Suporte e documentação InfoHelp Omni:
 
        ${COMUNIDADE_URL}
 
@@ -2680,7 +2680,7 @@ $(pendencia_da_ia)
 
 $(c_grn "  ─── InfoHelp Omni ──────────────────────────────────────")
 
-  $(t "Informações e suporte:")
+  Informações e suporte:
 
        ${COMUNIDADE_URL}
 
