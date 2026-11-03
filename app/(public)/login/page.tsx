@@ -39,12 +39,12 @@ export default async function LoginPage({
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#50e6ed] via-[#1588e8] to-[#a497ff]" />
       <div className="space-y-2 text-center">
         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#086ab7] dark:text-[#50e6ed]">
-          Seu espaço de trabalho
+          {t("Seu espaço de trabalho")}
         </p>
         <h1 className="text-3xl font-semibold tracking-tight">{t("Entrar")}</h1>
         <p className="text-sm text-muted-foreground">{marca.nome}</p>
         <p className="text-sm text-muted-foreground">
-          Bem-vindo! Continue de onde seu atendimento parou.
+          {t("Bem-vindo! Continue de onde seu atendimento parou.")}
         </p>
       </div>
       {reset === "success" && (
@@ -174,7 +174,7 @@ export default async function LoginPage({
       </div>
       <div className="border-t border-border pt-4 text-center">
         <Link href="/" className="text-xs font-medium text-muted-foreground underline-offset-4 transition hover:text-foreground hover:underline">
-          Conhecer o InfoHelp Omni
+          {t("Conhecer o InfoHelp Omni")}
         </Link>
       </div>
     </div>
