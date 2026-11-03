@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "install-infohelp-omni.sh"
+      - "omni.sh"
+      - "tests/shell/infohelp-omni-operations.test.sh"
       - "scripts/omni-preflight.sh"
       - "hostgator-setup-kit/install.sh"
       - "hostgator-setup-kit/install-single-server.sh"
@@ -15,6 +17,8 @@ on:
       - "infohelp/**"
     paths:
       - "install-infohelp-omni.sh"
+      - "omni.sh"
+      - "tests/shell/infohelp-omni-operations.test.sh"
       - "scripts/omni-preflight.sh"
       - "hostgator-setup-kit/install.sh"
       - "hostgator-setup-kit/install-single-server.sh"
@@ -35,7 +39,9 @@ jobs:
       - name: Baixar código do fork
         uses: actions/checkout@v4
       - name: Executar testes estáticos do bootstrap
-        run: bash tests/shell/infohelp-omni-bootstrap.test.sh
+        run: |
+          bash tests/shell/infohelp-omni-bootstrap.test.sh
+          bash tests/shell/infohelp-omni-operations.test.sh
       - name: Conferir ausência de segredos versionados nos arquivos do Omni
         shell: bash
         run: |
